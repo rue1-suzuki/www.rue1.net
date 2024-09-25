@@ -1,6 +1,7 @@
 import { auth } from "@/auth"
 import GoogleSignInForm from "@/components/GoogleSignInForm"
 import SignOutForm from "@/components/SignOutForm"
+import Link from "next/link"
 
 const HomePage = async () => {
   const session = await auth()
@@ -34,6 +35,14 @@ const HomePage = async () => {
               second: "numeric",
             })}
           </p>
+        </div>
+      </div>
+
+      <div className="mb-3">
+        <div className="flex flex-col justify-center gap-3">
+          <Link className="text-blue-500 underline" href={"/scrapings/schedule"}>
+            スクレイピング 大会日程
+          </Link>
         </div>
       </div>
 
