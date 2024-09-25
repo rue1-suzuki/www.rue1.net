@@ -16,7 +16,7 @@ const RootLayout = (props: RootLayoutProps) => {
           <div className="mb-3">
             <Header>
               <Link href="/">
-                ホームページ
+                ポートフォリオサイト
               </Link>
             </Header>
           </div>
