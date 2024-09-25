@@ -1,0 +1,15 @@
+type ScheduleType = {
+  url: string,
+  is_approval: boolean,
+  date: string,
+  location: string,
+  name: string,
+  store: string,
+  format: string,
+  participation: string,
+  entry_fee: number,
+  capacity: number,
+  start: string,
+  is_judge: boolean,
+  is_participation_declaration: boolean,
+}
