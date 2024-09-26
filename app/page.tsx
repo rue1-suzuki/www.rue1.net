@@ -3,7 +3,7 @@ import GoogleSignInForm from "@/components/GoogleSignInForm"
 import Header from "@/components/Header"
 import SignOutForm from "@/components/SignOutForm"
 import Link from "next/link"
-import { ScheduleIcon, TournamentIcon } from "./icons"
+import { LinkIcon, OpenInNewIcon, ScheduleIcon, TournamentIcon } from "./icons"
 
 const HomePage = async () => {
   try {
@@ -11,9 +11,19 @@ const HomePage = async () => {
 
     const linkItems = [
       {
+        icon: <LinkIcon />,
+        href: new URL("https://twitter.com/Rue1DM").href,
+        label: <> Twitter@ルゥ/Rue1DM </>,
+      },
+      {
+        icon: <LinkIcon />,
+        href: new URL("https://twitter.com/Akita_CS").href,
+        label: <> Twitter@DM秋田CS </>,
+      },
+      {
         icon: <TournamentIcon />,
-        href: "https://em.rue1.net",
-        label: <> em.rue1.net </>,
+        href: new URL("https://em.rue1.net").href,
+        label: <> EM -EventManager- </>,
       },
       {
         icon: <ScheduleIcon />,
@@ -65,21 +75,20 @@ const HomePage = async () => {
 
           <div className="mb-3">
             <div className="text-center">
-              <div className="flex flex-col justify-center gap-3">
+              <div className="flex flex-col justify-center gap-3 m-1 p-1">
                 {linkItems.map((item) => {
-                  const target = item.href.startsWith("http")
-                    ? "_blank"
-                    : undefined
-
-                  const rel = item.href.startsWith("http")
-                    ? "noopener noreferrer"
-                    : undefined
+                  const isExternal = item.href.startsWith("http")
+                  const target = isExternal ? "_blank" : undefined
+                  const rel = isExternal ? "noopener noreferrer" : undefined
 
                   return (
                     <Link className="border rounded px-4 py-2 text-blue-500 underline text-lg font-bold" href={item.href} target={target} rel={rel} key={item.href}>
                       <div className="flex justify-start items-center gap-1">
                         {item.icon}
                         {item.label}
+                        {isExternal &&
+                          <OpenInNewIcon className="fill-current w-[0.8rem] h-[0.8rem]" />
+                        }
                       </div>
                     </Link>
                   )
