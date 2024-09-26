@@ -1,6 +1,9 @@
-import Header from "@/components/Header"
-import Link from "next/link"
+import { Noto_Sans_JP } from 'next/font/google'
 import "./globals.css"
+
+const noto = Noto_Sans_JP({
+  subsets: ["latin"],
+})
 
 interface RootLayoutProps {
   children: React.ReactNode
@@ -11,19 +14,8 @@ const RootLayout = (props: RootLayoutProps) => {
 
   return (
     <html lang="ja">
-      <body>
-        <header>
-          <div className="mb-3">
-            <Header>
-              <Link href="/">
-                ポートフォリオサイト
-              </Link>
-            </Header>
-          </div>
-        </header>
-        <main>
-          {children}
-        </main>
+      <body className={noto.className}>
+        {children}
       </body>
     </html>
   )

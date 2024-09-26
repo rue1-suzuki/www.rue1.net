@@ -1,62 +1,101 @@
 import { auth } from "@/auth"
 import GoogleSignInForm from "@/components/GoogleSignInForm"
+import Header from "@/components/Header"
 import SignOutForm from "@/components/SignOutForm"
 import Link from "next/link"
+import { ScheduleIcon, TournamentIcon } from "./icons"
 
 const HomePage = async () => {
   try {
     const session = await auth()
 
+    const linkItems = [
+      {
+        icon: <TournamentIcon />,
+        href: "https://em.rue1.net",
+        label: <> em.rue1.net </>,
+      },
+      {
+        icon: <ScheduleIcon />,
+        href: "/scrapings/schedule",
+        label: <> スクレイピング 大会日程 </>,
+      },
+    ]
+
     return (
       <>
-        {!session?.user &&
+        <header>
           <div className="mb-3">
-            <div className="text-center">
-              <GoogleSignInForm />
-            </div>
+            <Header>
+              <Link href="/">
+                ポートフォリオサイト
+              </Link>
+            </Header>
           </div>
-        }
+        </header>
 
-        {session?.user &&
+        <main>
+          {!session?.user &&
+            <div className="mb-3">
+              <div className="text-center">
+                <GoogleSignInForm />
+              </div>
+            </div>
+          }
+
+          {session?.user &&
+            <div className="mb-3">
+              <div className="text-center">
+                <p> {session.user.id} </p>
+                <p> {session.user.name} </p>
+                <p> {session.user.email} </p>
+                <p>
+                  {new Date(session.expires).toLocaleDateString("ja-JP", {
+                    year: "numeric",
+                    month: "numeric",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    second: "numeric",
+                  })}
+                </p>
+              </div>
+            </div>
+          }
+
           <div className="mb-3">
             <div className="text-center">
-              <p> {session.user.id} </p>
-              <p> {session.user.name} </p>
-              <p> {session.user.email} </p>
-              <p>
-                {new Date(session.expires).toLocaleDateString("ja-JP", {
-                  year: "numeric",
-                  month: "numeric",
-                  day: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                  second: "numeric",
+              <div className="flex flex-col justify-center gap-3">
+                {linkItems.map((item) => {
+                  const target = item.href.startsWith("http")
+                    ? "_blank"
+                    : undefined
+
+                  const rel = item.href.startsWith("http")
+                    ? "noopener noreferrer"
+                    : undefined
+
+                  return (
+                    <Link className="border rounded px-4 py-2 text-blue-500 underline text-lg font-bold" href={item.href} target={target} rel={rel} key={item.href}>
+                      <div className="flex justify-start items-center gap-1">
+                        {item.icon}
+                        {item.label}
+                      </div>
+                    </Link>
+                  )
                 })}
-              </p>
+              </div>
             </div>
           </div>
-        }
 
-        <div className="mb-3">
-          <div className="text-center">
-            <div className="flex flex-col justify-center gap-3">
-              <Link className="text-blue-500 underline" href="https://em.rue1.net">
-                em.rue1.net
-              </Link>
-              <Link className="text-blue-500 underline" href="/scrapings/schedule">
-                スクレイピング 大会日程
-              </Link>
+          {session?.user &&
+            <div className="mb-3">
+              <div className="text-center">
+                <SignOutForm />
+              </div>
             </div>
-          </div>
-        </div>
-
-        {session?.user &&
-          <div className="mb-3">
-            <div className="text-center">
-              <SignOutForm />
-            </div>
-          </div>
-        }
+          }
+        </main>
       </>
     )
   } catch (error) {
