@@ -1,5 +1,7 @@
+import "@/app/globals.css"
+import Header from '@/components/Header'
 import { Noto_Sans_JP } from 'next/font/google'
-import "./globals.css"
+import Link from 'next/link'
 
 const noto = Noto_Sans_JP({
   subsets: ["latin"],
@@ -15,7 +17,18 @@ const RootLayout = (props: RootLayoutProps) => {
   return (
     <html lang="ja">
       <body className={noto.className}>
-        {children}
+        <header>
+          <div className="mb-3">
+            <Header>
+              <Link href="/">
+                ポートフォリオサイト
+              </Link>
+            </Header>
+          </div>
+        </header>
+        <main className='min-h-dvh'>
+          {children}
+        </main>
       </body>
     </html>
   )

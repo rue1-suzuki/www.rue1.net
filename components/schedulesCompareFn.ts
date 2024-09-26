@@ -1,4 +1,4 @@
-import convertDateStrToDate from "./convertDateStrToDate"
+import convertDateStrToDate from "@/components/convertDateStrToDate"
 
 const schedulesCompareFn = (a: ScheduleType, b: ScheduleType,) => {
   const startAtA = convertDateStrToDate(a.date, a.start)

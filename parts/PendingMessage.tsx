@@ -1,6 +1,6 @@
 "use client"
+import FullCover from "@/parts/FullCover"
 import { useFormStatus } from "react-dom"
-import FullCover from "./FullCover"
 
 interface PendingMessageProps {
   children: React.ReactNode

@@ -1,13 +1,13 @@
 "use client"
+import convertDateStrToDate from "@/components/convertDateStrToDate"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useMemo } from "react"
-import convertDateStrToDate from "./convertDateStrToDate"
 
 interface FilterFormProps {
   schedules: ScheduleType[]
 }
 
-const FilterForm = (props: FilterFormProps) => {
+const ScheduleFilterForm = (props: FilterFormProps) => {
   const { schedules } = props
 
   const router = useRouter()
@@ -157,4 +157,4 @@ const FilterForm = (props: FilterFormProps) => {
   )
 }
 
-export default FilterForm
+export default ScheduleFilterForm

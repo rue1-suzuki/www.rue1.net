@@ -1,7 +1,8 @@
-import ScheduleTable from "@/app/ScheduleTable"
 import { auth } from "@/auth"
+import ErrorMessage from "@/components/ErrorMessage"
 import GoogleSignInForm from "@/components/GoogleSignInForm"
-import FilterForm from "./FilterForm"
+import ScheduleFilterForm from "@/components/ScheduleFilterForm"
+import ScheduleTable from "@/components/ScheduleTable"
 
 const ScrapingSchedulePage = async () => {
   try {
@@ -22,8 +23,8 @@ const ScrapingSchedulePage = async () => {
         "content-type": "application/json",
       },
       next: {
-        revalidate: 60 * 60 * 1, // 1時間
-      }
+        revalidate: 60 * 60 * 24, // 1時間
+      },
     })
 
     const schedules: ScheduleType[] = await response.json()
@@ -31,7 +32,7 @@ const ScrapingSchedulePage = async () => {
     return (
       <>
         <div className="mb-3">
-          <FilterForm schedules={schedules} />
+          <ScheduleFilterForm schedules={schedules} />
         </div>
 
         <div className="mb-3">
@@ -40,19 +41,7 @@ const ScrapingSchedulePage = async () => {
       </>
     )
   } catch (error) {
-    const errorMessage = error instanceof Error
-      ? error.message
-      : '不明なエラー'
-
-    return (
-      <div className="mb-3">
-        <div className="text-center">
-          <p className="text-sun font-bold">
-            {errorMessage}
-          </p>
-        </div>
-      </div>
-    )
+    return (<ErrorMessage error={error} />)
   }
 }
 

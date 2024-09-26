@@ -1,8 +1,8 @@
 "use client"
+import convertDateStrToDate from "@/components/convertDateStrToDate"
+import schedulesCompareFn from "@/components/schedulesCompareFn"
 import { useSearchParams } from "next/navigation"
 import { useMemo } from "react"
-import convertDateStrToDate from "./scrapings/schedule/convertDateStrToDate"
-import schedulesCompareFn from "./scrapings/schedule/schedulesCompareFn"
 
 interface ScheduleTableProps {
   schedules: ScheduleType[]
