@@ -1,8 +1,10 @@
 import { auth } from "@/auth"
+import convertDateStrToDate from "@/components/convertDateStrToDate"
 import ErrorMessage from "@/components/ErrorMessage"
 import GoogleSignInForm from "@/components/GoogleSignInForm"
 import ScheduleFilterForm from "@/components/ScheduleFilterForm"
 import ScheduleTable from "@/components/ScheduleTable"
+import ResetLink from "./ResetLink"
 
 const ScrapingSchedulePage = async () => {
   try {
@@ -23,20 +25,32 @@ const ScrapingSchedulePage = async () => {
         "content-type": "application/json",
       },
       next: {
-        revalidate: 60 * 60 * 24, // 1時間
+        revalidate: 60 * 60 * 24, // 24時間
       },
     })
 
     const schedules: ScheduleType[] = await response.json()
 
+    const now = new Date()
+
+    const minimumFilteredSchedule = schedules.filter((schedule) => {
+      return now < convertDateStrToDate(schedule.date, schedule.start)
+    })
+
     return (
       <>
         <div className="mb-3">
-          <ScheduleFilterForm schedules={schedules} />
+          <ScheduleFilterForm schedules={minimumFilteredSchedule} />
         </div>
 
         <div className="mb-3">
-          <ScheduleTable schedules={schedules} />
+          <div className="text-center">
+            <ResetLink />
+          </div>
+        </div>
+
+        <div className="mb-3">
+          <ScheduleTable schedules={minimumFilteredSchedule} />
         </div>
       </>
     )

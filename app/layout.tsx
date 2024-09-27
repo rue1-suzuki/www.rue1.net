@@ -1,11 +1,16 @@
 import "@/app/globals.css"
-import Header from '@/components/Header'
-import { Noto_Sans_JP } from 'next/font/google'
-import Link from 'next/link'
+import Header from "@/components/Header"
+import { Metadata } from "next"
+import { Noto_Sans_JP } from "next/font/google"
 
-const noto = Noto_Sans_JP({
+const nextFont = Noto_Sans_JP({
   subsets: ["latin"],
 })
+
+export const metadata: Metadata = {
+  title: "ポートフォリオサイト",
+  description: "ポートフォリオサイト",
+}
 
 interface RootLayoutProps {
   children: React.ReactNode
@@ -16,17 +21,13 @@ const RootLayout = (props: RootLayoutProps) => {
 
   return (
     <html lang="ja">
-      <body className={noto.className}>
+      <body className={nextFont.className}>
         <header>
           <div className="mb-3">
-            <Header>
-              <Link href="/">
-                ポートフォリオサイト
-              </Link>
-            </Header>
+            <Header />
           </div>
         </header>
-        <main className='min-h-dvh'>
+        <main className="min-h-dvh">
           {children}
         </main>
       </body>

@@ -9,30 +9,28 @@ interface ScheduleTableProps {
 }
 
 const ScheduleTable = (props: ScheduleTableProps) => {
-  const { schedules } = props
-
   const searchParams = useSearchParams()
 
-  const filteredSchedules = useMemo(() => {
-    const selectedDate = searchParams.get("date")
-    const selectedLocation = searchParams.get("location")
-    const selectedFormat = searchParams.get("format")
+  const schedules = useMemo(() => {
+    const selectedDates = searchParams.getAll("date")
+    const selectedLocations = searchParams.getAll("location")
+    const selectedFormats = searchParams.getAll("format")
 
-    return schedules.filter((schedule) => {
-      if (selectedDate)
-        if (selectedDate !== schedule.date)
+    return props.schedules.filter((schedule) => {
+      if (selectedDates.length > 0)
+        if (!selectedDates.includes(schedule.date))
           return false
-      if (selectedLocation)
-        if (selectedLocation !== schedule.location)
+      if (selectedLocations.length > 0)
+        if (!selectedLocations.includes(schedule.location))
           return false
-      if (selectedFormat)
-        if (selectedFormat !== schedule.format)
+      if (selectedFormats.length > 0)
+        if (!selectedFormats.includes(schedule.format))
           return false
       return true
     })
-  }, [schedules, searchParams,])
+  }, [props.schedules, searchParams,])
 
-  if (filteredSchedules.length === 0) {
+  if (schedules.length === 0) {
     return (
       <div className="text-center">
         <p> 該当するイベントなし </p>
@@ -50,7 +48,7 @@ const ScheduleTable = (props: ScheduleTableProps) => {
         </tr>
       </thead>
       <tbody>
-        {filteredSchedules.sort(schedulesCompareFn).map((schedule) => {
+        {schedules.sort(schedulesCompareFn).map((schedule) => {
           const isTeam = schedule.name.indexOf("チーム") > 0
           const isBig = !isTeam && schedule.capacity >= 100
 

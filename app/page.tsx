@@ -14,21 +14,25 @@ const HomePage = async () => {
         icon: <LinkIcon />,
         href: new URL("https://twitter.com/Rue1DM").href,
         label: <> Twitter@ルゥ/Rue1DM </>,
+        isExternal: true,
       },
       {
         icon: <LinkIcon />,
         href: new URL("https://twitter.com/Akita_CS").href,
         label: <> Twitter@DM秋田CS </>,
+        isExternal: true,
       },
       {
         icon: <TournamentIcon />,
         href: new URL("https://em.rue1.net").href,
         label: <> EM -EventManager- </>,
+        isExternal: true,
       },
       {
         icon: <ScheduleIcon />,
         href: "/scrapings/schedule",
         label: <> スクレイピング 大会日程 </>,
+        isExternal: false,
       },
     ]
 
@@ -64,19 +68,20 @@ const HomePage = async () => {
 
         <div className="mb-3">
           <div className="text-center">
-            <div className="flex flex-col justify-center gap-3 m-1 p-1">
+            <div className="flex flex-col justify-center gap-1 m-1 p-1">
               {linkItems.map((item) => {
-                const isExternal = item.href.startsWith("http")
-                const target = isExternal ? "_blank" : undefined
-                const rel = isExternal ? "noopener noreferrer" : undefined
+                const externalProps = item.isExternal ? {
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                } : {}
 
                 return (
-                  <Link className="border rounded px-4 py-2 text-blue-500 underline text-lg font-bold" href={item.href} target={target} rel={rel} key={item.href}>
+                  <Link className="border rounded px-4 py-2 text-blue-500 underline text-lg font-bold" href={item.href} key={item.href} {...externalProps}>
                     <div className="flex justify-start items-center gap-1">
                       {item.icon}
                       {item.label}
-                      {isExternal &&
-                        <OpenInNewIcon className="fill-current w-[0.8rem] h-[0.8rem]" />
+                      {item.isExternal &&
+                        <OpenInNewIcon width="0.8rem" height="0.8rem" />
                       }
                     </div>
                   </Link>

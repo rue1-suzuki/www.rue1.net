@@ -1,6 +1,6 @@
 import { signIn } from "@/auth"
 import PendingMessage from "@/parts/PendingMessage"
-import SubmitButton from "@/parts/SubmitButon"
+import { GoogleIcon } from "./icons"
 
 const GoogleSignInForm = () => {
   const action = async () => {
@@ -9,12 +9,17 @@ const GoogleSignInForm = () => {
   }
 
   return (
-    <form action={action}>
-      <SubmitButton color="blue" size="lg">
-        Googleログイン
-      </SubmitButton>
+    <form className="max-w-lg flex flex-col justify-center gap-3" action={action}>
+      <div className="flex-auto m-auto">
+        <button className="border px-4 py-2 flex justify-center gap-1" type="submit">
+          <GoogleIcon />
+          <span className="text-lg font-bold">
+            Googleでログイン
+          </span>
+        </button>
+      </div>
       <PendingMessage>
-        <p> Googleログイン中 </p>
+        <p> Googleでログイン中 </p>
       </PendingMessage>
     </form>
   )

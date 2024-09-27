@@ -1,6 +1,5 @@
 import { signOut } from "@/auth"
 import PendingMessage from "@/parts/PendingMessage"
-import SubmitButton from "@/parts/SubmitButon"
 
 const SignOutForm = () => {
   const serverAction = async () => {
@@ -9,10 +8,10 @@ const SignOutForm = () => {
   }
 
   return (
-    <form action={serverAction}>
-      <SubmitButton color="red" size="md">
+    <form className="max-w-lg m-auto" action={serverAction}>
+      <button className="text-red-500 underline text-lg font-bold" type="submit">
         ログアウト
-      </SubmitButton>
+      </button>
       <PendingMessage>
         <p> ログアウト中 </p>
       </PendingMessage>

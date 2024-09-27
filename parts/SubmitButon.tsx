@@ -4,8 +4,8 @@ import { useFormStatus } from "react-dom"
 
 interface SubmitButtonProps {
   children: React.ReactNode
-  color: "blue" | "red" | string
-  size: "sm" | "md" | "lg" | string
+  color: "blue" | "red" | "white"
+  size: "sm" | "md" | "lg"
 }
 
 const SubmitButton = (props: SubmitButtonProps) => {
