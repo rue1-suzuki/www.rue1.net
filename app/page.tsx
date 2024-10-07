@@ -40,9 +40,7 @@ const HomePage = async () => {
       <>
         {!session?.user &&
           <div className="mb-3">
-            <div className="text-center">
-              <GoogleSignInForm />
-            </div>
+            <GoogleSignInForm />
           </div>
         }
 
@@ -93,9 +91,7 @@ const HomePage = async () => {
 
         {session?.user &&
           <div className="mb-3">
-            <div className="text-center">
-              <SignOutForm />
-            </div>
+            <SignOutForm />
           </div>
         }
       </>

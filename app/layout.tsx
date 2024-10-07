@@ -22,7 +22,7 @@ const RootLayout = (props: RootLayoutProps) => {
   return (
     <html lang="ja">
       <body className={nextFont.className}>
-        <header>
+        <header className="sticky top-0">
           <div className="mb-3">
             <Header />
           </div>

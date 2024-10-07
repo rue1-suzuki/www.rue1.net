@@ -8,10 +8,12 @@ const SignOutForm = () => {
   }
 
   return (
-    <form className="max-w-lg m-auto" action={serverAction}>
-      <button className="text-red-500 underline text-lg font-bold" type="submit">
-        ログアウト
-      </button>
+    <form className="max-w-lg mx-auto flex flex-col justify-center gap-3" action={serverAction}>
+      <div className="flex-auto m-auto">
+        <button className="text-red-500 underline text-lg font-bold" type="submit">
+          ログアウト
+        </button>
+      </div>
       <PendingMessage>
         <p> ログアウト中 </p>
       </PendingMessage>

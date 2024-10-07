@@ -3,13 +3,13 @@ import PendingMessage from "@/parts/PendingMessage"
 import { GoogleIcon } from "./icons"
 
 const GoogleSignInForm = () => {
-  const action = async () => {
+  const serverAction = async () => {
     "use server"
     await signIn("google")
   }
 
   return (
-    <form className="max-w-lg flex flex-col justify-center gap-3" action={action}>
+    <form className="max-w-lg mx-auto flex flex-col justify-center gap-3" action={serverAction}>
       <div className="flex-auto m-auto">
         <button className="border px-4 py-2 flex justify-center gap-1" type="submit">
           <GoogleIcon />

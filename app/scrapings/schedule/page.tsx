@@ -1,24 +1,11 @@
-import { auth } from "@/auth"
 import convertDateStrToDate from "@/components/convertDateStrToDate"
 import ErrorMessage from "@/components/ErrorMessage"
-import GoogleSignInForm from "@/components/GoogleSignInForm"
 import ScheduleFilterForm from "@/components/ScheduleFilterForm"
 import ScheduleTable from "@/components/ScheduleTable"
 import ResetLink from "./ResetLink"
 
 const ScrapingSchedulePage = async () => {
   try {
-    const session = await auth()
-    if (!session?.user) {
-      return (
-        <div className="mb-3">
-          <div className="text-center">
-            <GoogleSignInForm />
-          </div>
-        </div>
-      )
-    }
-
     const response = await fetch("https://scraping.rue1.net/schedule", {
       method: "GET",
       headers: {
@@ -31,16 +18,20 @@ const ScrapingSchedulePage = async () => {
 
     const schedules: ScheduleType[] = await response.json()
 
-    const now = new Date()
+    const now = convertDateStrToDate(new Date().toLocaleDateString("ja-JP", {
+      year: "2-digit",
+      month: "2-digit",
+      day: "2-digit",
+    }))
 
-    const minimumFilteredSchedule = schedules.filter((schedule) => {
-      return now < convertDateStrToDate(schedule.date, schedule.start)
+    const minimumFilteredSchedules = schedules.filter((schedule) => {
+      return now <= convertDateStrToDate(schedule.date)
     })
 
     return (
       <>
         <div className="mb-3">
-          <ScheduleFilterForm schedules={minimumFilteredSchedule} />
+          <ScheduleFilterForm schedules={minimumFilteredSchedules} />
         </div>
 
         <div className="mb-3">
@@ -50,7 +41,7 @@ const ScrapingSchedulePage = async () => {
         </div>
 
         <div className="mb-3">
-          <ScheduleTable schedules={minimumFilteredSchedule} />
+          <ScheduleTable schedules={minimumFilteredSchedules} />
         </div>
       </>
     )

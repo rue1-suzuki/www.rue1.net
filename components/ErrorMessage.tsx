@@ -9,7 +9,7 @@ const ErrorMessage = (props: ErrorMessageProps) => {
     return (
       <div className="mb-3">
         <div className="text-center">
-          <p className="text-sun font-bold">
+          <p className="text-red-500 font-bold">
             {error.message}
           </p>
         </div>
@@ -20,7 +20,7 @@ const ErrorMessage = (props: ErrorMessageProps) => {
   return (
     <div className="mb-3">
       <div className="text-center">
-        <p className="text-sun font-bold">
+        <p className="text-red-500 font-bold">
           不明なエラー
         </p>
       </div>
