@@ -1,8 +1,15 @@
 import convertDateStrToDate from "@/components/convertDateStrToDate"
 import ErrorMessage from "@/components/ErrorMessage"
+import Header from "@/components/Header"
 import ScheduleFilterForm from "@/components/ScheduleFilterForm"
 import ScheduleTable from "@/components/ScheduleTable"
+import { Metadata } from "next"
 import ResetLink from "./ResetLink"
+
+export const metadata: Metadata = {
+  title: "スクレイピング | 大会日程",
+  description: "スクレイピング | 大会日程",
+}
 
 const ScrapingSchedulePage = async () => {
   try {
@@ -30,6 +37,12 @@ const ScrapingSchedulePage = async () => {
 
     return (
       <>
+        <div className="mb-3">
+          <Header>
+            スクレイピング 大会日程
+          </Header>
+        </div>
+
         <div className="mb-3">
           <ScheduleFilterForm schedules={minimumFilteredSchedules} />
         </div>

@@ -1,6 +1,6 @@
 {
   "name": "www.rue1.net",
-  "version": "0.1.0",
+  "version": "2024.10.08",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -17,7 +17,6 @@
   "devDependencies": {
     "@auth/prisma-adapter": "^2.5.3",
     "@prisma/client": "^5.20.0",
-    "@prisma/extension-accelerate": "^1.2.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

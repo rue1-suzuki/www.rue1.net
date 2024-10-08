@@ -1,23 +1,17 @@
 "use client"
 import FullCover from "@/components/FullCover"
+import { ComponentProps } from "react"
 import { useFormStatus } from "react-dom"
 
-interface PendingMessageProps {
-  children: React.ReactNode
-}
-
-const PendingMessage = (props: PendingMessageProps) => {
-  const { children } = props
-
+const PendingMessage = (props: ComponentProps<typeof FullCover>) => {
   const { pending } = useFormStatus()
 
-  if (pending) {
-    return (
-      <FullCover>
-        {children}
-      </FullCover>
-    )
-  }
+  if (!pending)
+    return null
+
+  return (
+    <FullCover {...props} />
+  )
 }
 
 export default PendingMessage

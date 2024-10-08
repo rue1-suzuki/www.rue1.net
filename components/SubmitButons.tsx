@@ -1,10 +1,12 @@
 "use client"
-import { HTMLAttributes } from "react"
+import { ButtonHTMLAttributes, DetailedHTMLProps } from "react"
 import { useFormStatus } from "react-dom"
 
-const defaultClassName = "border rounded disabled:bg-opacity-50"
+const defaultClassName = "border rounded disabled:bg-opacity-50 px-4 py-2 text-lg font-bold"
 
-const SubmitButton = (props: HTMLAttributes<HTMLButtonElement>) => {
+type SubmitButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+
+const SubmitButton = (props: SubmitButtonProps) => {
   const { children } = props
 
   const { pending } = useFormStatus()
@@ -16,14 +18,14 @@ const SubmitButton = (props: HTMLAttributes<HTMLButtonElement>) => {
   )
 }
 
-export const BlueSubmitButton = (props: HTMLAttributes<HTMLButtonElement>) => {
-  return (<SubmitButton className={`${defaultClassName} bg-blue-500 text-white`} {...props} />)
+export const BlueSubmitButton = (props: SubmitButtonProps) => {
+  return (<SubmitButton className={`${defaultClassName} bg-blue-700 text-white`} {...props} />)
 }
 
-export const RedSubmitButton = (props: HTMLAttributes<HTMLButtonElement>) => {
-  return (<SubmitButton className={`${defaultClassName} bg-red-500 text-white`} {...props} />)
+export const RedSubmitButton = (props: SubmitButtonProps) => {
+  return (<SubmitButton className={`${defaultClassName} bg-red-700 text-white`} {...props} />)
 }
 
-export const GreenSubmitButton = (props: HTMLAttributes<HTMLButtonElement>) => {
-  return (<SubmitButton className={`${defaultClassName} bg-green-500 text-white`} {...props} />)
+export const GreenSubmitButton = (props: SubmitButtonProps) => {
+  return (<SubmitButton className={`${defaultClassName} bg-green-700 text-white`} {...props} />)
 }

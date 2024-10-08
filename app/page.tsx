@@ -1,7 +1,8 @@
 import { auth } from "@/auth"
 import ErrorMessage from "@/components/ErrorMessage"
 import GoogleSignInForm from "@/components/GoogleSignInForm"
-import { LinkIcon, OpenInNewIcon, ScheduleIcon, TournamentIcon } from "@/components/icons"
+import Header from "@/components/Header"
+import { AppsIcon, LinkIcon, OpenInNewIcon, ScheduleIcon, TournamentIcon } from "@/components/icons"
 import SignOutForm from "@/components/SignOutForm"
 import Link from "next/link"
 
@@ -34,33 +35,25 @@ const HomePage = async () => {
         label: <> スクレイピング 大会日程 </>,
         isExternal: false,
       },
+      {
+        icon: <AppsIcon />,
+        href: "/mypage",
+        label: <> マイページ </>,
+        isExternal: false,
+      },
     ]
 
     return (
       <>
+        <div className="mb-3">
+          <Header>
+            トップページ
+          </Header>
+        </div>
+
         {!session?.user &&
           <div className="mb-3">
             <GoogleSignInForm />
-          </div>
-        }
-
-        {session?.user &&
-          <div className="mb-3">
-            <div className="text-center">
-              <p> {session.user.id} </p>
-              <p> {session.user.name} </p>
-              <p> {session.user.email} </p>
-              <p>
-                {new Date(session.expires).toLocaleDateString("ja-JP", {
-                  year: "numeric",
-                  month: "numeric",
-                  day: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                  second: "numeric",
-                })}
-              </p>
-            </div>
           </div>
         }
 
