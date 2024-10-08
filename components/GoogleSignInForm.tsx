@@ -1,5 +1,5 @@
 import { signIn } from "@/auth"
-import PendingMessage from "@/parts/PendingMessage"
+import PendingMessage from "@/components/PendingMessage"
 import { GoogleIcon } from "./icons"
 
 const GoogleSignInForm = () => {

@@ -1,4 +1,4 @@
-import FullCover from "@/parts/FullCover"
+import FullCover from "@/components/FullCover"
 
 const Loading = () => {
   return (

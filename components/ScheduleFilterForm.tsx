@@ -1,5 +1,5 @@
 "use client"
-import FullCover from "@/parts/FullCover"
+import FullCover from "@/components/FullCover"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useId, useMemo, useRef, useState } from "react"
 import convertDateStrToDate from "./convertDateStrToDate"

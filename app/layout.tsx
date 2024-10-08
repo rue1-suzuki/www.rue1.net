@@ -2,6 +2,7 @@ import "@/app/globals.css"
 import Header from "@/components/Header"
 import { Metadata } from "next"
 import { Noto_Sans_JP } from "next/font/google"
+import { ReactNode } from "react"
 
 const nextFont = Noto_Sans_JP({
   subsets: ["latin"],
@@ -12,11 +13,7 @@ export const metadata: Metadata = {
   description: "ポートフォリオサイト",
 }
 
-interface RootLayoutProps {
-  children: React.ReactNode
-}
-
-const RootLayout = (props: RootLayoutProps) => {
+const RootLayout = async (props: { children: ReactNode }) => {
   const { children } = props
 
   return (

@@ -1,5 +1,5 @@
 "use client"
-import FullCover from "@/parts/FullCover"
+import FullCover from "@/components/FullCover"
 import { useFormStatus } from "react-dom"
 
 interface PendingMessageProps {

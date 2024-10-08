@@ -1,5 +1,5 @@
 import { signOut } from "@/auth"
-import PendingMessage from "@/parts/PendingMessage"
+import PendingMessage from "@/components/PendingMessage"
 
 const SignOutForm = () => {
   const serverAction = async () => {
