@@ -4,6 +4,7 @@ import schedulesCompareFn from "@/components/schedulesCompareFn"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useMemo } from "react"
+import Table from "./Table"
 
 interface ScheduleTableProps {
   schedules: ScheduleType[]
@@ -59,7 +60,7 @@ const ScheduleTable = (props: ScheduleTableProps) => {
 
         return (
           <div className="mb-3" key={scheduleItem.date}>
-            <table className="w-full text-center">
+            <Table>
               <thead className="bg-gray-100">
                 <tr className="border-y">
                   <th className="w-1/5 p-2"> 開催地 </th>
@@ -121,7 +122,7 @@ const ScheduleTable = (props: ScheduleTableProps) => {
                   )
                 })}
               </tbody>
-            </table>
+            </Table>
           </div>
         )
       })}

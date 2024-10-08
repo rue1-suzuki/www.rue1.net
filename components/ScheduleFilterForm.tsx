@@ -3,6 +3,7 @@ import FullCover from "@/components/FullCover"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useId, useMemo, useRef, useState } from "react"
 import convertDateStrToDate from "./convertDateStrToDate"
+import Table from "./Table"
 
 interface FilterFormProps {
   schedules: ScheduleType[]
@@ -128,7 +129,7 @@ const ScheduleFilterForm = (props: FilterFormProps) => {
             </p>
           </summary>
           <div className="bg-white max-h-[50dvh] overflow-y-auto m-1">
-            <table className="w-full m-auto text-center">
+            <Table>
               <thead className="sticky top-0 bg-gray-100">
                 <tr className="border-y">
                   <th className="p-2 w-1/4"> 選択 </th>
@@ -158,7 +159,7 @@ const ScheduleFilterForm = (props: FilterFormProps) => {
                   )
                 })}
               </tbody>
-            </table>
+            </Table>
           </div>
         </details>
 
@@ -173,7 +174,7 @@ const ScheduleFilterForm = (props: FilterFormProps) => {
             </p>
           </summary>
           <div className="bg-white max-h-[50dvh] overflow-y-auto m-1">
-            <table className="w-full m-auto text-center">
+            <Table>
               <thead className="sticky top-0 bg-gray-100">
                 <tr className="border-y">
                   <th className="p-2 w-1/3"> 選択 </th>
@@ -198,7 +199,7 @@ const ScheduleFilterForm = (props: FilterFormProps) => {
                   )
                 })}
               </tbody>
-            </table>
+            </Table>
           </div>
         </details>
 
@@ -213,7 +214,7 @@ const ScheduleFilterForm = (props: FilterFormProps) => {
             </p>
           </summary>
           <div className="bg-white max-h-[50dvh] overflow-y-auto m-1">
-            <table className="w-full m-auto text-center">
+            <Table>
               <thead className="sticky top-0 bg-gray-100">
                 <tr className="border-y">
                   <th className="p-2 w-1/4"> 選択 </th>
@@ -238,7 +239,7 @@ const ScheduleFilterForm = (props: FilterFormProps) => {
                   )
                 })}
               </tbody>
-            </table>
+            </Table>
           </div>
         </details>
       </form>
