@@ -5,37 +5,39 @@ import OrganizerForm from "@/components/OrganizerForm"
 import Table from "@/components/Table"
 import { prisma } from "@/prisma"
 import { redirect } from "next/navigation"
+import { cache } from "react"
+
+const getOrganizer = cache(async (email: string) => {
+  return prisma.organizer.findUnique({
+    where: {
+      email: email,
+    },
+  })
+})
+
+const getEvents = cache(async (email: string) => {
+  return prisma.event.findMany({
+    where: {
+      organizer: {
+        email: email,
+      }
+    },
+  })
+})
 
 const MyPagePage = async () => {
   try {
-    const session = await auth()
-
-    const sessionUserEmail = session?.user?.email
-
-    if (!sessionUserEmail) {
+    const sessionUserEmail = (await auth())?.user?.email
+    if (!sessionUserEmail)
       redirect("/")
-    }
 
-    const organizer = await prisma.organizer.findUnique({
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        createdAt: true,
-        updatedAt: true,
-        events: {
-          select: {
-            id: true,
-            createdAt: true,
-            updatedAt: true,
-            name: true,
-          }
-        }
-      },
-      where: {
-        email: sessionUserEmail,
-      },
-    })
+    const [
+      organizer,
+      events,
+    ] = await Promise.all([
+      getOrganizer(sessionUserEmail),
+      getEvents(sessionUserEmail),
+    ])
 
     return (
       <>
@@ -46,20 +48,20 @@ const MyPagePage = async () => {
           />
         </div>
 
-        {organizer?.events &&
+        {organizer &&
           <>
             <div className="mb-3">
               <EventForm organizer={organizer} />
             </div>
 
-            {organizer.events.length === 0 &&
+            {events.length === 0 &&
               <div className="mb-3">
                 <div className="text-center">
                   <p> まだイベントを作成していません </p>
                 </div>
               </div>
             }
-            {organizer.events.length > 0 &&
+            {events.length > 0 &&
               <div className="mb-3">
                 <Table>
                   <thead className="bg-gray-50">
@@ -68,7 +70,7 @@ const MyPagePage = async () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {organizer.events.map((event) => {
+                    {events.map((event) => {
                       return (
                         <tr className="border-y" key={event.id}>
                           <td className="p-2"> {event.name} </td>
@@ -84,6 +86,7 @@ const MyPagePage = async () => {
       </>
     )
   } catch (error) {
+    console.error(error)
     return (<ErrorMessage error={error} />)
   }
 }

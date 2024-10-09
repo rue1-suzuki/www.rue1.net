@@ -5,27 +5,44 @@ import { prisma } from "@/prisma"
 import { Event, Organizer } from "@prisma/client"
 import { revalidatePath } from "next/cache"
 
+const serverAction = async (formData: FormData) => {
+  "use server"
+  const name = formData.get("name")?.toString()
+  if (!name)
+    throw new Error("イベント名を入力してください。")
+
+  const organizerId = formData.get("organizerId")?.toString()
+  if (!organizerId)
+    throw new Error("主催者IDが見つかりません。")
+
+  const eventId = formData.get("eventId")?.toString()
+
+  const event = await (eventId
+    ? prisma.event.update({
+      where: {
+        id: eventId,
+      },
+      data: {
+        name: name,
+      },
+    })
+    : prisma.event.create({
+      data: {
+        organizerId: organizerId,
+        name: name,
+      },
+    })
+  )
+
+  console.info(event)
+  revalidatePath("/mypage")
+}
+
 const EventForm = (props: {
   organizer: Organizer
   event?: Event
 }) => {
   const { organizer, event, } = props
-
-  const serverAction = async (formData: FormData) => {
-    "use server"
-    const name = formData.get("name")?.toString()
-    if (!name)
-      throw new Error("イベント名を入力してください。")
-
-    await prisma.event.create({
-      data: {
-        organizerId: organizer.id,
-        name: name,
-      },
-    })
-
-    revalidatePath("/mypage")
-  }
 
   if (event && (event.organizerId !== organizer.id))
     return (
@@ -36,6 +53,17 @@ const EventForm = (props: {
 
   return (
     <Form action={serverAction}>
+      <input
+        name="organizerId"
+        type="hidden"
+        value={organizer.id}
+        required
+      />
+      <input
+        name="eventId"
+        type="hidden"
+        value={event?.id}
+      />
       <div className="flex flex-col justify-center gap-1">
         <label>
           <span className="text-lg font-bold text-gray-500 mx-1">

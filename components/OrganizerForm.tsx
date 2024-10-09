@@ -5,18 +5,17 @@ import { prisma } from "@/prisma"
 import { Organizer } from "@prisma/client"
 import { revalidatePath } from "next/cache"
 
-const OrganizerForm = (props: {
-  email: string
-  organizer?: Organizer
-}) => {
-  const { email, organizer, } = props
+const serverAction = async (formData: FormData) => {
+  "use server"
+  const email = formData.get("email")?.toString()
+  if (!email)
+    throw new Error("メールアドレスが見つかりません。")
 
-  const serverAction = async (formData: FormData) => {
-    "use server"
-    const name = formData.get("name")?.toString()
-    if (!name)
-      throw new Error("ハンドルネームを入力してください。")
+  const name = formData.get("name")?.toString()
+  if (!name)
+    throw new Error("ハンドルネームを入力してください。")
 
+  try {
     const organizer = await prisma.organizer.upsert({
       select: {
         id: true,
@@ -32,14 +31,29 @@ const OrganizerForm = (props: {
         name: name,
       },
     })
-
-    console.log(organizer)
-
+    console.info(organizer)
+  } catch (error) {
+    console.error(error)
+    throw error
+  } finally {
     revalidatePath("/mypage")
   }
+}
+
+const OrganizerForm = (props: {
+  email: string
+  organizer?: Organizer
+}) => {
+  const { email, organizer, } = props
 
   return (
     <Form action={serverAction}>
+      <input
+        name="email"
+        type="hidden"
+        value={email}
+        required
+      />
       <div className="flex flex-col justify-center gap-1">
         <label>
           <span className="text-lg font-bold text-gray-500 mx-1">
