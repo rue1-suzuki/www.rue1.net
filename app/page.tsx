@@ -2,46 +2,60 @@ import { auth } from "@/auth"
 import ErrorMessage from "@/components/ErrorMessage"
 import GoogleSignInForm from "@/components/GoogleSignInForm"
 import Header from "@/components/Header"
-import { AppsIcon, LinkIcon, OpenInNewIcon, ScheduleIcon, TournamentIcon } from "@/components/icons"
+import LinkList from "@/components/LinkList"
 import SignOutForm from "@/components/SignOutForm"
-import Link from "next/link"
+
+const snsLinkItems = [
+  {
+    href: new URL("https://twitter.com/Rue1DM").href,
+    children: <> Twitter | ルゥ/Rue1DM </>
+  },
+  {
+    href: new URL("https://twitter.com/Akita_CS").href,
+    children: <> Twitter | 秋田CS </>,
+  },
+]
+
+const anonymousLinkItems = [
+  {
+    href: new URL("https://swiss.rue1.net").href,
+    children: <> すいすいスイスドロー </>,
+  },
+  {
+    href: new URL("https://oyatu.rue1.net").href,
+    children: <> おやつチェッカー </>,
+  },
+  {
+    href: new URL("https://em.rue1.net").href,
+    children: <> EM -EventManager- </>,
+  },
+]
+
+const scrapingLinkItems = [
+  {
+    href: "https://scraping.rue1.net/docs",
+    children: <> スクレイピング | ドキュメント </>
+  },
+  {
+    href: "/scrapings/schedule",
+    children: <> スクレイピング | 大会日程 </>
+  },
+]
+
+const sessionUserLinkItems = [
+  {
+    href: "/mypage",
+    children: <> マイページ </>,
+  },
+  {
+    href: "/events",
+    children: <> イベント管理 </>,
+  },
+]
 
 const HomePage = async () => {
   try {
     const session = await auth()
-
-    const linkItems = [
-      {
-        icon: <LinkIcon />,
-        href: new URL("https://twitter.com/Rue1DM").href,
-        label: <> Twitter@ルゥ/Rue1DM </>,
-        isExternal: true,
-      },
-      {
-        icon: <LinkIcon />,
-        href: new URL("https://twitter.com/Akita_CS").href,
-        label: <> Twitter@DM秋田CS </>,
-        isExternal: true,
-      },
-      {
-        icon: <TournamentIcon />,
-        href: new URL("https://em.rue1.net").href,
-        label: <> EM -EventManager- </>,
-        isExternal: true,
-      },
-      {
-        icon: <ScheduleIcon />,
-        href: "/scrapings/schedule",
-        label: <> スクレイピング 大会日程 </>,
-        isExternal: false,
-      },
-      {
-        icon: <AppsIcon />,
-        href: "/mypage",
-        label: <> マイページ </>,
-        isExternal: false,
-      },
-    ]
 
     return (
       <>
@@ -59,28 +73,31 @@ const HomePage = async () => {
 
         <div className="mb-3">
           <div className="text-center">
-            <div className="flex flex-col justify-center gap-1 m-1 p-1">
-              {linkItems.map((item) => {
-                const externalProps = item.isExternal ? {
-                  target: "_blank",
-                  rel: "noopener noreferrer",
-                } : {}
-
-                return (
-                  <Link className="border rounded px-4 py-2 text-blue-500 underline text-lg font-bold" href={item.href} key={item.href} {...externalProps}>
-                    <div className="flex justify-start items-center gap-1">
-                      {item.icon}
-                      {item.label}
-                      {item.isExternal &&
-                        <OpenInNewIcon width="0.8rem" height="0.8rem" />
-                      }
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
+            <LinkList linkItems={snsLinkItems} />
           </div>
         </div>
+
+        <div className="mb-3">
+          <div className="text-center">
+            <LinkList linkItems={anonymousLinkItems} />
+          </div>
+        </div>
+
+        {session?.user &&
+          <div className="mb-3">
+            <div className="text-center">
+              <LinkList linkItems={scrapingLinkItems} />
+            </div>
+          </div>
+        }
+
+        {session?.user &&
+          <div className="mb-3">
+            <div className="text-center">
+              <LinkList linkItems={sessionUserLinkItems} />
+            </div>
+          </div>
+        }
 
         {session?.user &&
           <div className="mb-3">

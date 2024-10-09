@@ -16,6 +16,7 @@ const serverAction = async (formData: FormData) => {
     throw new Error("主催者IDが見つかりません。")
 
   const eventId = formData.get("eventId")?.toString()
+  const path = formData.get("path")?.toString()
 
   const event = await (eventId
     ? prisma.event.update({
@@ -35,19 +36,22 @@ const serverAction = async (formData: FormData) => {
   )
 
   console.info(event)
-  revalidatePath("/mypage")
+
+  if (path)
+    revalidatePath(path)
 }
 
 const EventForm = (props: {
   organizer: Organizer
   event?: Event
+  path?: string
 }) => {
-  const { organizer, event, } = props
+  const { organizer, event, path, } = props
 
   if (event && (event.organizerId !== organizer.id))
     return (
       <div className="text-center">
-        <p> 更新権限がありません </p>
+        <p> このイベントの更新権限がありません </p>
       </div>
     )
 
@@ -63,6 +67,11 @@ const EventForm = (props: {
         name="eventId"
         type="hidden"
         value={event?.id}
+      />
+      <input
+        name="path"
+        type="hidden"
+        value={path}
       />
       <div className="flex flex-col justify-center gap-1">
         <label>

@@ -12,4 +12,7 @@
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
+  "editor.trimAutoWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
 }
