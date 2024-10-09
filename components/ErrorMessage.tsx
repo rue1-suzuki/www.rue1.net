@@ -1,8 +1,6 @@
-interface ErrorMessageProps {
-  error: unknown
-}
-
-const ErrorMessage = (props: ErrorMessageProps) => {
+const ErrorMessage = (props: {
+  error: unknown,
+}) => {
   const { error } = props
 
   if (error instanceof Error) {

@@ -1,13 +1,11 @@
+import { HomeIcon } from "@/components/icons"
 import Link from "next/link"
 import { ReactNode } from "react"
-import { HomeIcon } from "./icons"
 
-interface HeaderProps {
-  href?: string
-  children: ReactNode
-}
-
-const Header = (props: HeaderProps) => {
+const Header = (props: {
+  href?: string,
+  children: ReactNode,
+}) => {
   const { href, children, } = props
 
   return (

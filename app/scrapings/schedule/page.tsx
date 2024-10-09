@@ -1,10 +1,10 @@
 import convertDateStrToDate from "@/components/convertDateStrToDate"
 import ErrorMessage from "@/components/ErrorMessage"
 import Header from "@/components/Header"
+import ResetLink from "@/components/ResetLink"
 import ScheduleFilterForm from "@/components/ScheduleFilterForm"
 import ScheduleTable from "@/components/ScheduleTable"
 import { Metadata } from "next"
-import ResetLink from "./ResetLink"
 
 export const metadata: Metadata = {
   title: "スクレイピング | 大会日程",

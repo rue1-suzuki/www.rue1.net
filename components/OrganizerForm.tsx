@@ -5,12 +5,10 @@ import { prisma } from "@/prisma"
 import { Organizer } from "@prisma/client"
 import { revalidatePath } from "next/cache"
 
-interface OrganizerFormProps {
+const OrganizerForm = (props: {
   email: string
   organizer?: Organizer
-}
-
-const OrganizerForm = (props: OrganizerFormProps) => {
+}) => {
   const { email, organizer, } = props
 
   const serverAction = async (formData: FormData) => {

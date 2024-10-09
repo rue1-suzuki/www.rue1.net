@@ -1,10 +1,10 @@
 "use client"
 import convertDateStrToDate from "@/components/convertDateStrToDate"
 import schedulesCompareFn from "@/components/schedulesCompareFn"
+import Table from "@/components/Table"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useMemo } from "react"
-import Table from "./Table"
 
 interface ScheduleTableProps {
   schedules: ScheduleType[]

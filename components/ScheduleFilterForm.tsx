@@ -1,15 +1,14 @@
 "use client"
+import convertDateStrToDate from "@/components/convertDateStrToDate"
 import FullCover from "@/components/FullCover"
+import ScheduleTableTr from "@/components/ScheduleTableTr"
+import Table from "@/components/Table"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useCallback, useId, useMemo, useRef, useState } from "react"
-import convertDateStrToDate from "./convertDateStrToDate"
-import Table from "./Table"
+import { useCallback, useMemo, useRef, useState } from "react"
 
-interface FilterFormProps {
-  schedules: ScheduleType[]
-}
-
-const ScheduleFilterForm = (props: FilterFormProps) => {
+const ScheduleFilterForm = (props: {
+  schedules: ScheduleType[],
+}) => {
   const { schedules } = props
 
   const router = useRouter()
@@ -248,46 +247,3 @@ const ScheduleFilterForm = (props: FilterFormProps) => {
 }
 
 export default ScheduleFilterForm
-
-interface ScheduleTableTrProps {
-  item: {
-    name: string
-    value: string
-    label: string
-    count: number
-  }
-  selectedValues: string[]
-  onChange: () => void
-}
-
-const ScheduleTableTr = (props: ScheduleTableTrProps) => {
-  const { item, selectedValues, onChange, } = props
-
-  const id = useId()
-
-  return (
-    <tr className={`border-y ${item.count > 0 ? "bg-blue-50 text-blue-500" : "text-gray-500"}`}>
-      <td className="p-2">
-        <input
-          className="w-[1rem] h-[1rem]"
-          type="checkbox"
-          name={item.name}
-          value={item.value}
-          defaultChecked={selectedValues.includes(item.value)}
-          onChange={onChange}
-          id={id}
-        />
-      </td>
-      <td className="p-2">
-        <label className="block" htmlFor={id}>
-          {item.label}
-        </label>
-      </td>
-      <td className="p-2">
-        <label className="block" htmlFor={id}>
-          {item.count}件
-        </label>
-      </td>
-    </tr>
-  )
-}

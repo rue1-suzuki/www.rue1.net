@@ -5,12 +5,10 @@ import { prisma } from "@/prisma"
 import { Event, Organizer } from "@prisma/client"
 import { revalidatePath } from "next/cache"
 
-interface EventFormProps {
+const EventForm = (props: {
   organizer: Organizer
   event?: Event
-}
-
-const EventForm = (props: EventFormProps) => {
+}) => {
   const { organizer, event, } = props
 
   const serverAction = async (formData: FormData) => {

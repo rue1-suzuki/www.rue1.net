@@ -1,6 +1,6 @@
 import { signIn } from "@/auth"
 import PendingMessage from "@/components/PendingMessage"
-import { GoogleIcon } from "./icons"
+import { GoogleIcon } from "@/components/icons"
 
 const GoogleSignInForm = () => {
   const serverAction = async () => {

@@ -1,10 +1,10 @@
 import { auth } from "@/auth"
 import ErrorMessage from "@/components/ErrorMessage"
+import EventForm from "@/components/EventForm"
+import OrganizerForm from "@/components/OrganizerForm"
 import Table from "@/components/Table"
 import { prisma } from "@/prisma"
 import { redirect } from "next/navigation"
-import EventForm from "./EventForm"
-import OrganizerForm from "./OrganizerForm"
 
 const MyPagePage = async () => {
   try {
