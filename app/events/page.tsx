@@ -2,27 +2,8 @@ import { auth } from "@/auth"
 import ErrorMessage from "@/components/ErrorMessage"
 import EventForm from "@/components/EventForm"
 import EventTable from "@/components/EventTable"
-import { prisma } from "@/prisma"
+import { findEventMany, findOrganizer } from "@/prisma"
 import { redirect } from "next/navigation"
-import { cache } from "react"
-
-const findOrganizer = cache(async (email: string) => {
-  return prisma.organizer.findUnique({
-    where: {
-      email: email,
-    },
-  })
-})
-
-const findEventMany = cache(async (email: string) => {
-  return prisma.event.findMany({
-    where: {
-      organizer: {
-        email: email,
-      }
-    },
-  })
-})
 
 const EventsPage = async () => {
   try {

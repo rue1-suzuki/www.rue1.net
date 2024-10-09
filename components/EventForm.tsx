@@ -18,33 +18,37 @@ const serverAction = async (formData: FormData) => {
   const eventId = formData.get("eventId")?.toString()
   const path = formData.get("path")?.toString()
 
-  const event = await (eventId
-    ? prisma.event.update({
-      where: {
-        id: eventId,
-      },
-      data: {
-        name: name,
-      },
-    })
-    : prisma.event.create({
-      data: {
-        organizerId: organizerId,
-        name: name,
-      },
-    })
-  )
-
-  console.info(event)
-
-  if (path)
-    revalidatePath(path)
+  try {
+    const event = await (eventId
+      ? prisma.event.update({
+        where: {
+          id: eventId,
+        },
+        data: {
+          name: name,
+        },
+      })
+      : prisma.event.create({
+        data: {
+          organizerId: organizerId,
+          name: name,
+        },
+      })
+    )
+    console.info(event)
+  } catch (error) {
+    console.error(error)
+    throw error
+  } finally {
+    if (path)
+      revalidatePath(path)
+  }
 }
 
 const EventForm = (props: {
   organizer: Organizer
   event?: Event
-  path?: string
+  path: string
 }) => {
   const { organizer, event, path, } = props
 
@@ -72,6 +76,7 @@ const EventForm = (props: {
         name="path"
         type="hidden"
         value={path}
+        required
       />
       <div className="flex flex-col justify-center gap-1">
         <label>

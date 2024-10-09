@@ -15,6 +15,8 @@ const serverAction = async (formData: FormData) => {
   if (!name)
     throw new Error("ハンドルネームを入力してください。")
 
+  const path = formData.get("path")?.toString()
+
   try {
     const organizer = await prisma.organizer.upsert({
       select: {
@@ -36,15 +38,17 @@ const serverAction = async (formData: FormData) => {
     console.error(error)
     throw error
   } finally {
-    revalidatePath("/mypage")
+    if (path)
+      revalidatePath(path)
   }
 }
 
 const OrganizerForm = (props: {
   email: string
   organizer?: Organizer
+  path: string
 }) => {
-  const { email, organizer, } = props
+  const { email, organizer, path, } = props
 
   return (
     <Form action={serverAction}>
@@ -52,6 +56,12 @@ const OrganizerForm = (props: {
         name="email"
         type="hidden"
         value={email}
+        required
+      />
+      <input
+        name="path"
+        type="hidden"
+        value={path}
         required
       />
       <div className="flex flex-col justify-center gap-1">

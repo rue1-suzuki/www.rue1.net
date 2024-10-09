@@ -1,25 +1,22 @@
+import { isRedirectError } from "next/dist/client/components/redirect"
+
 const ErrorMessage = (props: {
   error: unknown,
 }) => {
   const { error } = props
 
-  if (error instanceof Error) {
-    return (
-      <div className="mb-3">
-        <div className="text-center">
-          <p className="text-red-500 font-bold">
-            {error.message}
-          </p>
-        </div>
-      </div>
-    )
+  if (isRedirectError(error)) {
+    throw error
   }
 
   return (
     <div className="mb-3">
       <div className="text-center">
-        <p className="text-red-500 font-bold">
-          不明なエラー
+        <p className="text-red-500 text-lg font-bold">
+          {error instanceof Error
+            ? <> {error.message} </>
+            : <> 不明なエラー </>
+          }
         </p>
       </div>
     </div>

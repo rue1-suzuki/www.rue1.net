@@ -7,12 +7,12 @@ import SignOutForm from "@/components/SignOutForm"
 
 const snsLinkItems = [
   {
-    href: new URL("https://twitter.com/Rue1DM").href,
-    children: <> Twitter | ルゥ/Rue1DM </>
+    href: new URL("https://x.com/Rue1DM").href,
+    children: <> X | ルゥ/Rue1DM </>
   },
   {
-    href: new URL("https://twitter.com/Akita_CS").href,
-    children: <> Twitter | 秋田CS </>,
+    href: new URL("https://x.com/Akita_CS").href,
+    children: <> X | 秋田CS </>,
   },
 ]
 

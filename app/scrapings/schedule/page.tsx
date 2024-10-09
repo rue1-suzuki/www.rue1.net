@@ -37,23 +37,23 @@ const ScrapingSchedulePage = async () => {
 
     return (
       <>
-        <div className="mb-3">
+        <div className="mb-10">
           <Header>
             スクレイピング 大会日程
           </Header>
         </div>
 
-        <div className="mb-3">
+        <div className="mb-10">
           <ScheduleFilterForm schedules={minimumFilteredSchedules} />
         </div>
 
-        <div className="mb-3">
+        <div className="mb-10">
           <div className="text-center">
             <ResetLink />
           </div>
         </div>
 
-        <div className="mb-3">
+        <div className="mb-10">
           <ScheduleTable schedules={minimumFilteredSchedules} />
         </div>
       </>

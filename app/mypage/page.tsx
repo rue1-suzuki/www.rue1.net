@@ -1,17 +1,8 @@
 import { auth } from "@/auth"
 import ErrorMessage from "@/components/ErrorMessage"
 import OrganizerForm from "@/components/OrganizerForm"
-import { prisma } from "@/prisma"
+import { findOrganizer } from "@/prisma"
 import { redirect } from "next/navigation"
-import { cache } from "react"
-
-const findOrganizer = cache(async (email: string) => {
-  return prisma.organizer.findUnique({
-    where: {
-      email: email,
-    },
-  })
-})
 
 const MyPagePage = async () => {
   try {
@@ -22,10 +13,11 @@ const MyPagePage = async () => {
     const organizer = await findOrganizer(sessionUserEmail)
 
     return (
-      <div className="mb-3">
+      <div className="mb-10">
         <OrganizerForm
           email={sessionUserEmail}
           organizer={organizer ?? undefined}
+          path="/mypage"
         />
       </div>
     )
